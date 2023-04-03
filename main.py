@@ -20,6 +20,7 @@ def send_email(subject, body, sender, recipients, password):
     smtp_server.quit()
 
 if __name__ == '__main__':
+    ############################################ Odczyt z pliku
     file = open('students.txt', 'r')
     Lines = file.readlines()
     file.close()
@@ -32,6 +33,7 @@ if __name__ == '__main__':
         if len(arr)==6:
             students.append({"email": arr[0], "Imie": arr[1], "Nazwisko": arr[2], "Punkty": arr[3], "Ocena": arr[4], "Status":arr[5]})
 
+    ############################################ Ręczne dodawanie i usuwanie studenta
     answer = input("DODAC czy USUNAC studenta? ")
     if answer == "DODAC":
         line = input("Podaj dane studenta w formacie \"<email>,<imie>,<nazwisko>,<punkty>\": ")
@@ -58,6 +60,7 @@ if __name__ == '__main__':
         else:
             print("Nie znaleziono studenta")
 
+    ############################################ Wysyłanie maili
     for student in students:
         if student.get("Status") != "MAILED":
             send_email("Ocena", str(student.get("Ocena")), student.get("email"),"xxx@gmail.com", "xxx")
@@ -65,6 +68,7 @@ if __name__ == '__main__':
                 = {"email":student.get("email"), "Imie":student.get("Imie"), "Nazwisko":student.get("Nazwisko")
                 , "Punkty":student.get("Punty"), "Ocena":student.get("Ocena"), "Status":"MAILED"}
 
+    ############################################ Zapisywanie w pliku
     filepath = "studentsOut.txt"
     with open(filepath, "w") as file_object:
         for student in students:
